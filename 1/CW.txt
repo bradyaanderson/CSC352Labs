@@ -1,0 +1,408 @@
+>> np = 1e7;
+>> np = 1e6;
+>> nd = 2;
+>> A = randn(np, nd); B = randn(np, nd);
+>> d = randn(np, 1);
+>> for i = 1:np
+d(i) = (B(i,1) - A(i,1)).^2
+>> for i = 1:np
+d(i) = (B(i,1) - A(i,1)).^2 + (B(i,2) - A(i,2)).^2;
+d(i) = sqrt(d(i));
+end
+>> Question1
+Error: File: Question1.m Line: 6 Column: 53
+Invalid expression. When calling a function or indexing a variable, use parentheses. Otherwise, check for mismatched delimiters.
+ 
+>> Question1
+Elapsed time is 0.155420 seconds.
+>> Question1
+Elapsed time is 0.050176 seconds.
+>> Question1
+Elapsed time is 0.031738 seconds.
+>> Question1
+Elapsed time is 0.057462 seconds.
+>> Question1
+Elapsed time is 0.970464 seconds.
+>> [d1,t1] = lab1a(1e3,10);
+>> [d2,t2] = lab1a(1e5,10);
+>> [d3,t3] = lab1a(1e7,10);
+>> for k = 1:10
+[d(k), t(k)] = lab1b(1e7,10,k);
+end
+Starting parallel pool (parpool) using the 'local' profile ...
+Warning: The system time zone setting, 'US/Central', does not specify a single time zone unambiguously. It will be treated as
+'America/Chicago'. See the datetime.TimeZone property for details about specifying time zones. 
+> In verifyTimeZone (line 34)
+  In datetime (line 543)
+  In parallel.internal.cluster.DefaultProperties.getNewJobPropStruct (line 17)
+  In parallel.internal.cluster.CJSSupport/buildJob (line 158)
+  In parallel.cluster.CJSCluster/buildConcurrentJob (line 538)
+  In parallel.Cluster/createConcurrentJob (line 1144)
+  In parallel.internal.pool.InteractiveClient>iCreateCommunicatingJob (line 745)
+  In parallel.internal.pool.InteractiveClient/start (line 331)
+  In parallel.Pool>iStartClient (line 796)
+  In parallel.Pool.hBuildPool (line 585)
+  In parallel.internal.pool.doParpool (line 18)
+  In parpool (line 98)
+  In lab1b (line 4) 
+Connected to the parallel pool (number of workers: 1).
+Operation terminated by user during parallel.internal.pool.serialize (line 12)
+
+
+In distcomp.remoteparfor/serialize (line 274)
+            data = parallel.internal.pool.serialize(...
+
+In distcomp.remoteparfor/addInterval (line 324)
+                data = obj.serialize(varargin);
+
+In parallel_function>distributed_execution (line 708)
+                noLoopErrorDetected = P.addInterval(j, subinterval_C);
+
+In parallel_function (line 577)
+    R = distributed_execution(...
+
+In lab1b (line 8)
+parfor i = 1:np
+ 
+Operation terminated by user during matlab.internal.language.introspective.classWrapper.MCOS/innerGetLocalMethod (line 89)
+
+
+In matlab.internal.language.introspective.classWrapper.rawMCOS/innerGetMethod (line 114)
+                classInfo = innerGetLocalMethod(cw, elementName, classMethod.Abstract, classMethod.Static);
+
+In matlab.internal.language.introspective.classWrapper.rawMCOS/getLocalElement (line 97)
+                    classInfo = cw.innerGetMethod(classMethod);
+
+In matlab.internal.language.introspective.classWrapper.rawMCOS/getElement (line 39)
+                classInfo = cw.getLocalElement(elementName, justChecking);
+
+In matlab.internal.language.introspective.classWrapper.base/getClassInformation (line 24)
+                classInfo = cw.getElement(elementName, justChecking);
+
+In matlab.internal.language.introspective.NameResolver/resolveImplicitPath>ternaryResolve (line 96)
+                obj.classInfo = classHandle.getClassInformation(objectParts.method, obj.justChecking);
+
+In matlab.internal.language.introspective.NameResolver/resolveImplicitPath>innerResolveImplicitPath (line 36)
+            allPackageInfo = ternaryResolve(obj, objectParts);
+
+In matlab.internal.language.introspective.NameResolver/resolveImplicitPath (line 21)
+    innerResolveImplicitPath(obj, topic);
+
+In matlab.internal.language.introspective.NameResolver/innerDoResolve (line 13)
+        obj.resolveImplicitPath(topic);
+
+In matlab.internal.language.introspective.NameResolver/doResolve (line 31)
+        obj.innerDoResolve(topic);
+
+In matlab.internal.language.introspective.NameResolver/executeResolve (line 7)
+            obj.doResolve(obj.topicInput, true);
+
+In matlab.internal.language.introspective.resolveName (line 20)
+    nameResolver.executeResolve();
+
+In helpUtils.helpProcess/getTopicHelpText (line 13)
+            nameResolver = matlab.internal.language.introspective.resolveName(hp.topic, '', false, hp.wsVariables, hp.fixTypos);
+
+In helpUtils.helpProcess/getHelpText (line 4)
+        hp.getTopicHelpText();
+
+In help (line 55)
+        process.getHelpText;
+
+In matlab.internal.language.introspective.errorDocCallback (line 2)
+    if ~isempty(help(topic, '-noDefault'))
+ 
+
+>> home
+>> for k=1:3, [d(:,k), t(k)]=lab1b(1e7,10,k); end
+Operation terminated by user during distcomp.remoteparfor (line 305)
+
+
+In parallel.parfor.PoolOptions/createEngine (line 22)
+            engine = distcomp.remoteparfor(...
+
+In parallel_function>@(initData,F)createEngine(M,initData,F)
+
+In parallel_function (line 458)
+        engine = engineBuilder({@make_channel, parfor_C}, F);
+
+In lab1b (line 10)
+    parfor j = 1:nd
+ 
+
+>> hp = parpool(4)
+Error using parpool (line 113)
+Found an interactive session. You cannot have multiple interactive sessions open simultaneously. To terminate the existing
+session, use delete(gcp('nocreate')).
+ 
+>> delete(gcp('nocreate))
+ delete(gcp('nocreate))
+            ↑
+Error: Character vector is not terminated properly.
+ 
+>> delete(gcp('nocreate'))
+Parallel pool using the 'local' profile is shutting down.
+>> hp = parpool(4)
+Starting parallel pool (parpool) using the 'local' profile ...
+Connected to the parallel pool (number of workers: 4).
+
+hp = 
+
+ Pool with properties: 
+
+            Connected: true
+           NumWorkers: 4
+              Cluster: local
+        AttachedFiles: {}
+    AutoAddClientPath: true
+          IdleTimeout: 30 minutes (30 minutes remaining)
+          SpmdEnabled: true
+
+>> spmd, R = randn(100,1); end
+>> R1 = R{1}
+
+R1 =
+
+   -1.1037
+    0.4521
+    1.4768
+    0.0832
+   -1.2005
+    0.3961
+   -0.6370
+    1.7799
+    1.2659
+   -0.4713
+   -0.4086
+    0.4113
+    1.7548
+   -0.8130
+   -2.0423
+   -2.3358
+   -0.1428
+    0.3107
+    2.0534
+   -0.0398
+   -1.7766
+   -1.0251
+   -2.0567
+    0.7187
+   -0.7098
+    0.5968
+   -0.3004
+   -1.0249
+   -0.1722
+    1.1135
+   -0.5613
+   -0.9243
+   -0.0170
+    1.1798
+   -0.2550
+   -0.4852
+   -0.5035
+    0.3956
+   -0.3214
+   -0.6622
+    0.4718
+    0.9655
+    0.7127
+   -0.4397
+    1.1447
+   -0.0207
+    0.3679
+    0.2406
+   -1.3748
+   -0.8868
+   -0.9542
+   -0.5224
+    0.8872
+    0.8514
+   -0.2466
+    2.5391
+    0.5600
+    0.1222
+    1.8690
+    0.2827
+    0.3427
+    1.3329
+    1.5019
+    1.4253
+   -0.1011
+   -0.7623
+   -2.6313
+    0.2938
+   -0.5564
+   -1.6864
+    1.1102
+    1.4339
+   -0.0672
+    0.0131
+   -0.0836
+    0.6695
+   -0.7173
+   -1.0804
+    0.6398
+    1.4420
+   -0.8471
+   -0.6716
+    0.1100
+   -1.4409
+    2.3275
+    0.5393
+   -0.1886
+    1.1146
+    1.2643
+    0.3729
+   -1.4471
+    0.7378
+   -0.0209
+    0.5846
+    0.6767
+   -0.0277
+   -0.6433
+    0.4829
+    1.2137
+    2.0202
+
+>> spmd
+labindex
+numlabs
+end
+Lab 1: 
+  
+  ans =
+  
+       1
+  
+  
+  ans =
+  
+       4
+  
+Lab 2: 
+  
+  ans =
+  
+       2
+  
+  
+  ans =
+  
+       4
+  
+Lab 3: 
+  
+  ans =
+  
+       3
+  
+  
+  ans =
+  
+       4
+  
+Lab 4: 
+  
+  ans =
+  
+       4
+  
+  
+  ans =
+  
+       4
+  
+>> spmd, if (labindex==1), c = 3e8; end; end
+>> spmd, disp(c); end
+Lab 1: 
+     300000000
+  
+Analyzing and transferring files to the workers ...done.
+Error detected on workers 2 3 4.
+
+Caused by:
+    An UndefinedFunction error was thrown on the workers for 'c'.  This may be because the file containing 'c' is not accessible
+    on the workers.  Specify the required files for this parallel pool using the command: addAttachedFiles(pool, ...).  See the
+    documentation for parpool for more details.
+        Undefined function or variable 'c'.
+ 
+>> c
+ 
+c =
+ 
+   Lab 1: class = double, size = [1  1]
+   Lab 2: No data
+   Lab 3: No data
+   Lab 4: No data
+ 
+>> hp.NumWorkers
+
+ans =
+
+     4
+
+>> lab1d
+Error: File: lab1d.m Line: 13 Column: 13
+This statement is incomplete.
+ 
+>> lab1d
+>> d
+ 
+d =
+ 
+   Lab 1: class = double, size = [2500000        1]
+   Lab 2: class = double, size = [2500000        1]
+   Lab 3: class = double, size = [2500000        1]
+   Lab 4: class = double, size = [2500000        1]
+ 
+>> lab1d
+>> lab1f
+Undefined function or variable 'A'.
+
+Error in lab1f (line 6)
+dA = distributed(A); dB = distributed(B);
+ 
+>> lab1f
+Error using distributed (line 183)
+A distributed array cannot be created with data of class: Composite.
+
+Error in lab1f (line 7)
+dA = distributed(aA); dB = distributed(aB);
+ 
+>> lab1g
+Warning: An error has occurred during SPMD execution. An attempt has been made to interrupt execution on the workers. If this
+situation persists, it may be necessary to interrupt execution using CTRL-C and then deleting and restarting the parallel pool.
+
+The error that occurred on worker 2 is:
+Error using lab1g (line 4)
+Undefined function 'labsend' for input arguments of type 'double'.
+. 
+> In spmdlang.RemoteSpmdExecutor/maybeWarnIfInterruptedAndWaiting (line 316)
+  In spmdlang.RemoteSpmdExecutor/isComputationComplete (line 132)
+  In spmdlang.spmd_feval_impl (line 21)
+  In spmd_feval (line 8)
+  In lab1g (line 4) 
+Analyzing and transferring files to the workers ...done.
+Warning: An error has occurred during SPMD execution. An attempt has been made to interrupt execution on the workers. If this
+situation persists, it may be necessary to interrupt execution using CTRL-C and then deleting and restarting the parallel pool.
+
+The error that occurred on worker 2 is:
+Error using lab1g (line 4)
+Undefined function 'labsend' for input arguments of type 'double'.
+. 
+> In spmdlang.RemoteSpmdExecutor/maybeWarnIfInterruptedAndWaiting (line 316)
+  In spmdlang.RemoteSpmdExecutor/isComputationComplete (line 132)
+  In spmdlang.spmd_feval_impl (line 21)
+  In spmd_feval (line 8)
+  In lab1g (line 4) 
+Error using lab1g (line 4)
+Error detected on worker 2.
+
+Caused by:
+    Error using lab1g (line 4)
+    An UndefinedFunction error was thrown on the workers for 'labsend'.  This may be because the file containing 'labsend' is not
+    accessible on the workers.  Specify the required files for this parallel pool using the command: addAttachedFiles(pool, ...).
+    See the documentation for parpool for more details.
+        Undefined function 'labsend' for input arguments of type 'double'.
+ 
+>> `
