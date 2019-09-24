@@ -5,12 +5,11 @@ if isempty(hp), hp=parpool(nw); end
 A = randn(np, nd); B = randn(np, nd);
 d = zeros(np, 1);
 tic;
-for i = 1:np
-    e = 0;
-    parfor j = 1:nd
-        e = e + (B(i,1)-A(i,j)).^2;
+parfor i = 1:np
+    for j = 1:nd
+        d(i) = d(i) + (B(i,j)-A(i,j)).^2;
     end
-    d(i) = sqrt(e);
+    d(i) = sqrt(d(i));
 end
 t = toc;
 delete(hp);
